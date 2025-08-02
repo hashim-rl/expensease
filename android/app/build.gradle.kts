@@ -2,19 +2,21 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("dev.flutter.flutter-gradle-plugin")
+    id("com.google.gms.google-services") // ✅ Required for Firebase
 }
 
 android {
     namespace = "com.example.expensease"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    compileSdk = 35
+    ndkVersion = "29.0.13599879"
 
     defaultConfig {
         applicationId = "com.example.expensease"
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        minSdk = 23
+        targetSdk = 35
+        versionCode = 1
+        versionName = "1.0"
+        multiDexEnabled = true // ✅ Useful for Firebase if hitting method limit
     }
 
     buildTypes {
@@ -30,13 +32,13 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-        isCoreLibraryDesugaringEnabled = true
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true // ✅ Required for java.time support
     }
 
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 
     buildFeatures {
@@ -49,9 +51,10 @@ flutter {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10") // Add Kotlin stdlib
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4") // Needed for desugaring
-}
+    implementation(platform("com.google.firebase:firebase-bom:34.0.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10")
 
-// ✅ Required for Firebase and other Google services
-apply(plugin = "com.google.gms.google-services")
+    // ✅ Required for java.time APIs in older Android versions (like flutter_local_notifications)
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
+}

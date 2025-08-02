@@ -25,7 +25,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
     // Automatically navigate when video ends
     _controller.addListener(() {
-      if (_controller.value.position >= _controller.value.duration) {
+      if (_controller.value.isInitialized &&
+          _controller.value.position >= _controller.value.duration) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (_) => const AuthPage()),
@@ -43,14 +44,20 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Center(
-        child: _controller.value.isInitialized
-            ? AspectRatio(
-          aspectRatio: _controller.value.aspectRatio,
-          child: VideoPlayer(_controller),
-        )
-            : const CircularProgressIndicator(
+      backgroundColor: Colors.black, // Change this if needed
+      body: _controller.value.isInitialized
+          ? SizedBox.expand(
+        child: FittedBox(
+          fit: BoxFit.cover,
+          child: SizedBox(
+            width: _controller.value.size.width,
+            height: _controller.value.size.height,
+            child: VideoPlayer(_controller),
+          ),
+        ),
+      )
+          : const Center(
+        child: CircularProgressIndicator(
           color: Colors.white,
         ),
       ),

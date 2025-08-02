@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart'; // for debugPrint
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -11,10 +12,11 @@ class AuthService {
     try {
       await _auth.signOut();
     } catch (e) {
-      print('Sign out error: $e');
+      debugPrint('Sign out error: $e');
       rethrow;
     }
   }
+
   // Sign in with email & password
   Future<User?> signIn(String email, String password) async {
     try {
@@ -24,10 +26,10 @@ class AuthService {
       );
       return result.user;
     } on FirebaseAuthException catch (e) {
-      print('Sign in error: ${e.message}');
+      debugPrint('Sign in error: ${e.message}');
       return null;
     } catch (e) {
-      print('Sign in error: $e');
+      debugPrint('Sign in error: $e');
       return null;
     }
   }
@@ -41,10 +43,10 @@ class AuthService {
       );
       return result.user;
     } on FirebaseAuthException catch (e) {
-      print('Registration error: ${e.message}');
+      debugPrint('Registration error: ${e.message}');
       return null;
     } catch (e) {
-      print('Registration error: $e');
+      debugPrint('Registration error: $e');
       return null;
     }
   }

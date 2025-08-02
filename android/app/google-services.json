@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "337555533644",
+    "project_id": "expensease-fc8ff",
+    "storage_bucket": "expensease-fc8ff.firebaseapp.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:337555533644:android:a880a75e7e6998978069e9",
+        "android_client_info": {
+          "package_name": "com.example.expensease"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1k8CUI3_h_tfY8n6ILgt9J0ty-Evlcvc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
